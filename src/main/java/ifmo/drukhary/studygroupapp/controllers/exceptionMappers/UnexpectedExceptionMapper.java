@@ -1,18 +1,18 @@
-//package ifmo.drukhary.studygroupapp.controllers.exceptionMappers;
-//
-//import ifmo.drukhary.studygroupapp.DTO.ErrorData;
-//import jakarta.ws.rs.core.Response;
-//import jakarta.ws.rs.ext.ExceptionMapper;
-//import jakarta.ws.rs.ext.Provider;
-//
-//@Provider
-//public class UnexpectedExceptionMapper implements ExceptionMapper<Exception> {
-//
-//    @Override
-//    public Response toResponse(Exception exception) {
-//        System.err.println(exception.getMessage());
-//        return Response.status(Response.Status.BAD_REQUEST).entity(
-//                        new ErrorData("Сервер недоступен."))
-//                .build();
-//    }
-//}
+package ifmo.drukhary.studygroupapp.controllers.exceptionMappers;
+
+import ifmo.drukhary.studygroupapp.DTO.ErrorData;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+
+@ControllerAdvice
+public class UnexpectedExceptionMapper {
+    @ExceptionHandler({Exception.class})
+    public ResponseEntity<ErrorData> toResponse(Exception exception) {
+        System.err.println(exception.getMessage());
+        return ResponseEntity.status(BAD_REQUEST).body(
+                new ErrorData("Сервер недоступен."));
+    }
+}

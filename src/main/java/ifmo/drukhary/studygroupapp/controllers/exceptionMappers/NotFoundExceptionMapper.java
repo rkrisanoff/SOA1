@@ -2,14 +2,16 @@ package ifmo.drukhary.studygroupapp.controllers.exceptionMappers;
 
 import ifmo.drukhary.studygroupapp.DTO.ErrorData;
 import jakarta.ws.rs.NotFoundException;
-import jakarta.ws.rs.core.Response;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import static jakarta.ws.rs.core.Response.Status.NOT_FOUND;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
+@ControllerAdvice
 public class NotFoundExceptionMapper {
     @ExceptionHandler({NotFoundException.class})
-    public Response notFoundExceptionHandler(NotFoundException ex) {
-        return Response.status(NOT_FOUND).entity(new ErrorData("Not Found")).build();
+    public ResponseEntity<ErrorData> notFoundExceptionHandler(NotFoundException ex) {
+        return ResponseEntity.status(NOT_FOUND).body(new ErrorData("Not Found"));
     }
 }

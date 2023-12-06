@@ -2,12 +2,16 @@ package ifmo.drukhary.studygroupapp.controllers.exceptionMappers;
 
 import ifmo.drukhary.studygroupapp.DTO.ErrorData;
 import ifmo.drukhary.studygroupapp.exceptions.StudyGroupDoesNotExistException;
-import jakarta.ws.rs.core.Response;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
+
+@ControllerAdvice
 public class StudyGroupDoesNotExistExceptionMapper {
     @ExceptionHandler({StudyGroupDoesNotExistException.class})
-    public Response toResponse(StudyGroupDoesNotExistException ex) {
-        return Response.status(Response.Status.NOT_FOUND).entity(new ErrorData("Not Found")).build();
+    public ResponseEntity<ErrorData> toResponse(StudyGroupDoesNotExistException ex) {
+        return ResponseEntity.status(HTTP_NOT_FOUND).body(new ErrorData("Not Found"));
     }
 }

@@ -2,17 +2,17 @@ package ifmo.drukhary.studygroupapp.controllers.exceptionMappers;
 
 import ifmo.drukhary.studygroupapp.DTO.ErrorData;
 import jakarta.ws.rs.InternalServerErrorException;
-import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.ext.ExceptionMapper;
-import jakarta.ws.rs.ext.Provider;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
-@Provider
-public class InternalServerErrorExceptionMapper implements ExceptionMapper<InternalServerErrorException> {
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
-    @Override
-    public Response toResponse(InternalServerErrorException arg) {
-        return Response.status(Response.Status.BAD_REQUEST).entity(
-                        new ErrorData("Сервер недоступен"))
-                .build();
+@ControllerAdvice
+public class InternalServerErrorExceptionMapper {
+    @ExceptionHandler({InternalServerErrorException.class})
+    public ResponseEntity<ErrorData> internalServerErrorExceptionHandler(InternalServerErrorException arg) {
+        return ResponseEntity.status(BAD_REQUEST).body(
+                new ErrorData("Сервер недоступен"));
     }
 }
