@@ -26,7 +26,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 
 @RestController
-@RequestMapping("/study-groups")
+@RequestMapping("/api/study-groups")
 @Validated
 public class StudyGroupsController {
 
