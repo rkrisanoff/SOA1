@@ -34,9 +34,8 @@ public class StudyGroupsController {
     private StudyGroupService studyGroupService;
 
     @GetMapping("/ping")
-    @ResponseBody
-    public String ping() throws WrongFilterException {
-        return "PONG";
+    public String ping() {
+        return "";
     }
 
 
